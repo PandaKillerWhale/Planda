@@ -57,7 +57,7 @@ const Navbar = () => {
   */
   return (
     <div>
-      <div className="welcome">Welcome {cookieState}</div>
+      <div className="welcome">Welcome, {cookieState}</div>
       <div className="container">
         <div>
           <h1 onClick={AppConfigChecker}>
