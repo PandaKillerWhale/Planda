@@ -1,10 +1,10 @@
 import React from 'react';
 import LoginPage from './LoginPage.jsx';
 
-const LoginContainer = () => {
+const LoginContainer = (props) => {
   return (
     <div>
-      <LoginPage />
+      <LoginPage  setUser={props.setUser}/>
     </div>
   );
 };
