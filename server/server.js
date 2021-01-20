@@ -23,42 +23,39 @@ app.use('/build', express.static(path.resolve(__dirname, '../build')));
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 // routes
-app.get(
-  '/api/user/groups',
-  (req, res, next) => {
-    console.log('session-server', req.session)
-    console.log('user-server', req.user)
-    next()
-  },
-  userController.getGroups,
-  (req, res) => {
-    res.json({
-      username: req.user.username,
-      userGroups: res.locals.userGroups,
-    });
-  }
-);
 
-// routes
+/**
+ * Get all groups current user is a member of.
+ */
+app.get('/api/user/groups', userController.getGroups, (req, res) => {
+  res.json({
+    username: req.user.username,
+    userGroups: res.locals.userGroups,
+  });
+});
+
 // app.get('/api/user/groups', notebookController.getNotebooks, (req, res) => {
 //   res.json(res.locals.notebooks);
 // });
 
+/**
+ * Get all cards that belong to a group
+ */
 app.get('/api/cards/group/:groupId', groupController.getCards, (req, res) => {
   res.json(res.locals.cards);
 });
 
-// --------- post new cards -------------
+/**
+ * Get all cards that are visible to current user
+ */
+ app.get('/api/cards/user/', userController.getUserCards, (req, res) => {
+   res.json(res.locals.cards)
+ })
+
 
 app.post('/api/card', cardController.postCard, (req, res) => {
   res.json(res.locals.newCard);
 });
-
-// --------- wrapped in if statement -------------
-// app.use('/', (req, res) => {
-//   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
-// });
-// -----------------------------------------------
 
 // error handling
 app.use((req, res) => {
