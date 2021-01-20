@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/index.css';
-// import Webpack from './Webpack.jsx';
-// import Frontend from './Frontend.jsx';
-// import Backend from './Backend.jsx';
-// import WebpackSteps from './WebpackSteps.jsx';
-// import FrontendSteps from './FrontendSteps.jsx';
-// import BackendSteps from './BackendSteps.jsx';
-import TaskCategory from './TaskCategory.jsx'
-import TaskCategorySteps from './TaskCategorySteps.jsx'
+import TaskCategory from './TaskCategory.jsx';
+import TaskCategorySteps from './TaskCategorySteps.jsx';
+import ProgressBar from './ProgressBar.jsx';
+
+const progressData = [
+  { backgroundColor: "#FDDAD3", bgcolor: "#90D14F", barCat: "FrontEnd_I", completed: 33 },
+  { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", barCat: "FrontEnd_II", completed: 35 },
+  { backgroundColor: "#EAF6DC", bgcolor: "#90D14F", barCat: "BackEnd_I", completed: 53 },
+  { backgroundColor: "#D0F5F6", bgcolor: "#90D14F", barCat: "BackEnd_II", completed: 75 },
+];
 
 const Navbar = () => {
-  /* create different state hooks */
-  // const [webpackState, toggleWebpackState] = useState(false);
-  // const [frontendState, toggleFrontendState] = useState(false);
-  // const [backendState, toggleBackendState] = useState(false);
-  // const [appConfigState, toggleAppConfigState] = useState(false);
-  const [taskCategories, setTaskCategories] = useState(['AppConfig', 'Webpack', 'Backend', 'Frontend']);
+  const [taskCategories, setTaskCategories] = useState(['AppConfig', 'Webpack', 'Backend', 'Frontend', 'Wei', 'Alex', 'Final']);
   const [currentTaskCat, toggleCurrentTask] = useState('')
   const [cookieState, setCookieState] = useState('');
 
+  
   /* on page load, we create a cookie with the users name that stays persistent and use it to check against backend */
   useEffect(() => {
     fetch('/api/getCookie')
@@ -26,27 +24,6 @@ const Navbar = () => {
       .then(data => setCookieState(data.username));
   }, []);
 
-  /* check to see which navbar item is currently selected */
-  // const webpackChecker = () => {
-  //   webpackState ? toggleWebpackState(false) : toggleWebpackState(true);
-  //   toggleBackendState(false);
-  //   toggleFrontendState(false);
-  //   toggleAppConfigState(false)
-  // }
-
-  // const frontEndChecker = () => {
-  //   frontendState ? toggleFrontendState(false) : toggleFrontendState(true);
-  //   toggleWebpackState(false);
-  //   toggleBackendState(false);
-  //   toggleAppConfigState(false)
-  // }
-
-  // const backendChecker = () => {
-  //   backendState ? toggleBackendState(false) : toggleBackendState(true);
-  //   toggleFrontendState(false);
-  //   toggleWebpackState(false);
-  //   toggleAppConfigState(false)
-  // }
   const taskChecker = (e) => {
     console.log(e.target, 'maybe?')
     toggleCurrentTask(e.target.id)
@@ -74,37 +51,15 @@ const currentTaskShow = [];
       <div className="welcome">Welcome, {cookieState}</div>
       <div className="container">
         {catButtons}
-        {/* <div>
-          <h1 onClick={AppConfigChecker}>
-            <AppConfig />
-          </h1>
-        </div>
-        <div>
-          <h1 onClick={webpackChecker}>
-            <Webpack />
-          </h1>
-        </div>
-        <div>
-          <h1 onClick={frontEndChecker}>
-            <Frontend />
-          </h1>
-        </div>
-        <div>
-          <h1 onClick={backendChecker}>
-            <Backend />
-          </h1>
-        </div> */}
+      </div>
+      <div className="progressbar">
+        {progressData.map((item, idx) => (
+          <ProgressBar key={idx} backgroundColor={item.backgroundColor} bgcolor={item.bgcolor} barCat={item.barCat} completed={item.completed} />
+        ))}
       </div>
         {currentTaskShow}
-      {/* <div className="grid-container">
-        {webpackState ? <WebpackSteps cookieState={cookieState}/> : null}
-        {frontendState ? <FrontendSteps cookieState={cookieState}/> : null}
-        {backendState ? <BackendSteps cookieState={cookieState}/> : null}
-        {appConfigState ? <AppConfigSteps /> : null}
-      </div> */}
     </div>
   )
 }
-
 
 export default Navbar;
