@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 const Backend = () => {
   return (
     <div>
-      <h1 className="navbarTitle">Backend</h1>
+      <h3 className="navbarTitle">Backend</h3>
     </div>
   );
 }
