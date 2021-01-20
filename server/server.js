@@ -4,19 +4,18 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const PORT = 3000;
 
-// const frontend = require('./routes/frontendRoutes.js');
-const groupController = require('./controller/groupController.js');
-const cardController = require('./controller/cardController.js');
-// const notebookController = require('./controller/notebookController.js');
-const userController = require('./controller/userController.js');
-
-// execute auth file with this instance of app
-require('./server-auth')(app);
+const groupRouter = require('./routes/groupRoutes')
+const cardRouter = require('./routes/cardRoutes')
+// const notebookRouter = require('./routes/notebookRoutes')
+const userRouter = require('./routes/userRoutes')
 
 // body parsing/url parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// execute auth file with this instance of app
+require('./server-auth')(app);
 
 // serve build folder/statically serving client folder
 app.use('/build', express.static(path.resolve(__dirname, '../build')));
@@ -24,38 +23,10 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 
 // routes
 
-/**
- * Get all groups current user is a member of.
- */
-app.get('/api/user/groups', userController.getGroups, (req, res) => {
-  res.json({
-    username: req.user.username,
-    userGroups: res.locals.userGroups,
-  });
-});
+app.use('/api/group', groupRouter)
+app.use('/api/card', cardRouter)
+app.use('/api/user', userRouter)
 
-// app.get('/api/user/groups', notebookController.getNotebooks, (req, res) => {
-//   res.json(res.locals.notebooks);
-// });
-
-/**
- * Get all cards that belong to a group
- */
-app.get('/api/cards/group/:groupId', groupController.getCards, (req, res) => {
-  res.json(res.locals.cards);
-});
-
-/**
- * Get all cards that are visible to current user
- */
- app.get('/api/cards/user/', userController.getUserCards, (req, res) => {
-   res.json(res.locals.cards)
- })
-
-
-app.post('/api/card', cardController.postCard, (req, res) => {
-  res.json(res.locals.newCard);
-});
 
 // error handling
 app.use((req, res) => {

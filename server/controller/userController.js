@@ -15,10 +15,8 @@ userController.getGroups = (req, res, next) => {
   });
 };
 
-userController.getCards = (req, res, next) => {
+userController.getUserCards = (req, res, next) => {
   if (!req.user.id) {
-    // if user is not logged in, redirect to login
-    res.redirect('/');
     return next({ log: 'groupController.getCards: user is not logged in' });
   }
 
