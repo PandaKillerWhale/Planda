@@ -63,7 +63,6 @@ module.exports = (app) => {
 
   passport.serializeUser((user, done) => {
     // user is the user passed from done method inside GoogleStrategy
-    console.log('serialize user', user);
     return done(null, user.id);
   });
 
@@ -72,15 +71,17 @@ module.exports = (app) => {
     const findUserQuery = `SELECT * FROM users WHERE user_id = $1`;
     const findUserParams = [id];
 
-    db.query(findUserQuery, findUserParams).then(({ rows }) => {
-      // if user can't be found
-      if (!rows || !rows.length) {
-        return done(null, false)
-      }
+    db.query(findUserQuery, findUserParams)
+      .then(({ rows }) => {
+        // if user can't be found
+        if (!rows || !rows.length) {
+          return done(null, false);
+        }
 
-      const { user_id: id, username } = rows[0];
-      done(null, { id, username });
-    });
+        const { user_id: id, username } = rows[0];
+        done(null, { id, username });
+      })
+      .catch((err) => next(err));
   });
 
   // route to listen to google's oauth callback
