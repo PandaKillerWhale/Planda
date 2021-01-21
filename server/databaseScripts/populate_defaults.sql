@@ -58,7 +58,7 @@ VALUES (
     'Import your modules',
     'Require in necessary modules at the top of the webpack config file using CommonJS require syntax. Starter modules to import are: webpack, path, HtmlWebpackPlugin.',
     'https://webpack.js.org/configuration/',
-    0
+    1
   ),
   (
     2,
@@ -72,7 +72,7 @@ VALUES (
     'If you’re working with a backend',
     'It’s important to create a devServer object that will contain a proxy and a route that the proxy will route to',
     'https://webpack.js.org/configuration/dev-server/',
-    0
+    1
   ),
   (
     2,
@@ -94,28 +94,28 @@ VALUES (
     'Make sure you have relevant react dependencies installed',
     'To install run the following commands: npm i react react-router-dom',
     'https://github.com/facebook/react',
-    0
+    1
   ),
   (
     3,
     'Create a client a folder that contains relevant files',
     'This includes index.html, App.jsx, index.js index.css (Your file structure may vary)',
     'https://reactjs.org/docs/getting-started.html',
-    0
+    1
   ),
   (
     3,
     'Creating your first components',
     'For best practice, create a components folder within your client folder. WIthin here, you’ll be naming your components that can either end in .js or .jsx syntax (User preference!)',
     'https://reactjs.org/docs/components-and-props.html',
-    0
+    1
   ),
   (
     3,
     'Create some styles',
     'For best practice, create a styles folder within your client folder. Within here, you should match the file name to your component name for consistency. (Just make sure they are a .css or .scss file)',
     'https://create-react-app.dev/docs/adding-a-stylesheet/',
-    0
+    1
   ),
   (
     3,
@@ -137,14 +137,14 @@ VALUES (
     'Make sure you have relevant backend dependencies installed',
     'To install, run the following commands: npm i express pg nodemon',
     'https://expressjs.com/',
-    0
+    1
   ),
   (
     4,
     'Backend File Structuring',
     'Create a server folder that exists within your project folder. This process should be similar to your frontend folder structure creation. Within your server folder, you should also have api.js, controller.js, and routes.js',
     'https://www.terlici.com/2014/08/25/best-practices-express-structure.html',
-    0
+    1
   ),
   (
     4,
