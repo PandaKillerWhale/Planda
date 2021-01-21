@@ -1,28 +1,27 @@
 import React from 'react';
 
-const ProgressBar = (props) => {
-  const { bgcolor, barCat, completed } = props;
+const ProgressBarOverall = (props) => {
+  const { bgcolor, allPercentage } = props;
   // styling will move to style.css when feature finish mockup
 
   const fillerStyles = {
     height: '100%',
-    width: `${completed}%`,
+    width: `${allPercentage}%`,
     backgroundColor: bgcolor,
+    transition: width 1s ease-in-out;
     opacity: 1,
     borderRadius: 'inherit',
     textAlign: 'right'
   }
 
-
-
   return (
     <div className="barContainerStyles">
       <div style={fillerStyles}>
-        <span className="labelStyles">{`${completed}%`}</span>
+        <span className="labelStyles">{`Overall Progress ${allPercentage}%`}</span>
       </div>
     </div>
   );
 };
 
-export default ProgressBar;
+export default ProgressBarOverall;
 
