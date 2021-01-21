@@ -25,11 +25,17 @@ cardController.updateCard = (req, res, next) => {
 
 cardController.deleteCard = (req, res, next) => {
   const { card_id } = req.body;
+<<<<<<< HEAD
 
   const query = `DELETE FROM cards c WHERE c.card_id = $1 RETURNING *`;
   const queryParams = [card_id]
   db.query(query, queryParams).then((data) => {
 
+=======
+  const query = `DELETE FROM cards c WHERE c.card_id = $1 RETURNING *`;
+  const queryParams = [card_id]
+  db.query(query, queryParams).then((data) => {
+>>>>>>> a45e19b43601bbe2fb1d855e1cd4ad3993db7f52
     res.locals.deletedCard = data.rows[0];
     next();
   });
