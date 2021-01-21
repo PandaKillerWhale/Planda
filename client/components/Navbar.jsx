@@ -16,7 +16,7 @@ const progressData = [
 
 const Navbar = () => {
 
-  const [taskCategories, setTaskCategories] = useState(['AppConfig', 'Webpack', 'Backend', 'Frontend']);
+  const [taskCategories, setTaskCategories] = useState([]);
   const [currentTaskCat, toggleCurrentTask] = useState('');
   const [cards, setCards] = useState([]);
   const [userState, setUserState] = useState({name:'', id:'', groups:[], group_id:[], enabled:false});
@@ -33,22 +33,37 @@ const Navbar = () => {
       });
   }, []);
 
+  //Pulling Card data based on current displays
   useEffect(() => {
     if (userState.groups.indexOf(currentDisplay) >= 0) {
-    fetch('/api/group/cards/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  // "/api/group/cards/""
+    fetch('/api/group/cards/'+userState.group_id[userState.groups.indexOf(currentDisplay)]) 
       .then(res => res.json())
       .then(data => {
         setCards(data);
       });
     } else if (currentDisplay === userState.name) {
-      fetch('/api/user/cards/')  // "/api/group/cards/""
+      fetch('/api/user/cards/')  
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setCards(data);
       });
     }
   }, [currentDisplay])
+
+  //Create Task Categories based on current Display
+  useEffect(() => {
+    if (userState.groups.indexOf(currentDisplay) >= 0) {
+    fetch('api/group/notebooks/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  
+      .then(res => res.json())
+      .then(data => {
+        const newNotebooks=[];
+        data.forEach( notebook => newNotebooks.push(notebook.name));
+        setTaskCategories(newNotebooks);
+      });
+    } else if (currentDisplay === userState.name) {
+      setTaskCategories(userState.groups)
+    }
+  }, [cards])
 
   const taskChecker = (e) => {
     return toggleCurrentTask(e.target.id);
@@ -80,15 +95,7 @@ const Navbar = () => {
 
     // USER PANEL ENABLER 
     const userPanel = [];
-    if (userState.enabled) userPanel.push(
-      <UserPanel 
-        key='UserPanel1' 
-        userState={userState} 
-        setCurrentDisplay={setCurrentDisplay} 
-        setUserState={setUserState}
-      />
-    )
-
+    if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} currentDisplay={currentDisplay} setCurrentDisplay={setCurrentDisplay} taskCategories={taskCategories} setTaskCategories={setTaskCategories} setUserState={setUserState} />)
     // LOGIN ENABLER
     const login = [];
   if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState}/>)
@@ -131,6 +138,3 @@ const Navbar = () => {
 }
 
 export default Navbar;
-
-
-// src='client/assets/light_dark.png'

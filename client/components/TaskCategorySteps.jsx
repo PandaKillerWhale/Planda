@@ -4,13 +4,8 @@ const TaskCategorySteps = (props) => {
   /* variable and state declaration */
 
   const createdDivs = [];
-  const [Data, setData] = useState(props.cardData.filter( card => card.notebook_name === props.type));
+  const [Data, setData] = useState(props.userData.groups.includes(props.type) ? props.cardData.filter( card => card.group_name === props.type) : props.cardData.filter( card => card.notebook_name === props.type));
   const [notebookData, setNotebookData] = useState(() => Data[0] ? [Data[0].notebook_name, Data[0].notebook_id] : null);
-
-  /*
-    * similar to component life cycle method.
-    * onload, the page will make a fetch request, and set it as state under appConfigData
-  */
 
   const comments = [];
   const showComments = (e) => {
@@ -26,7 +21,7 @@ const TaskCategorySteps = (props) => {
         card_id:e.target.id
       })
     }
-    fetch('/api/deleteCard', deleteOptions)
+    fetch('/api/card/', deleteOptions)
     .then( response => response.json())
     .then( parsed =>  setData(Data.filter(element => element.card_id!== parsed.card_id)))
   }

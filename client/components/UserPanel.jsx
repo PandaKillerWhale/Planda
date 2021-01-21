@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import CreationModal from './CreationModal';
+import TaskCategory from './TaskCategory';
 
 /* Title within navbar */
 const UserPanel = (props) => {
+
+  const [creationModal, setCreationModal] = useState([]);
+
+
   const changeDisplay = (e) => props.setCurrentDisplay(e.target.id.replace('userPanelBtn', ''));
 
   const appendGroupToState = (group) => {
@@ -11,6 +17,21 @@ const UserPanel = (props) => {
       group_id: props.userState.group_id.concat(group.group_id),
     });
   };
+  const addNotebook = (title) => {
+    if(props.currentDisplay === props.userState.name) return setCreationModal([]);////// HIDE BUTTON IF THIS IS TRUE
+    const postOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({ notebookName: title }),
+    }
+    fetch('/api/group/notebook/'+props.userState.group_id[props.userState.groups.indexOf(props.currentDisplay)], postOptions)
+    .then ( () => (setCreationModal([]), props.setTaskCategories(taskCategories.concat(title))))
+    
+  }
+
 
   const createGroup = (e) => {
     const newGroupName = window.prompt('New Group Name:');
@@ -32,6 +53,10 @@ const UserPanel = (props) => {
       .then((newGroup) => appendGroupToState(newGroup))
       .catch((err) => console.error(err));
   };
+
+  const createModal = (type, typePostCallback) => {
+    return setCreationModal([<CreationModal type={type} clickFunc={typePostCallback}/>])
+  }
 
   const hideUserPanel = (e) => {
     props.setUserState({ ...props.userState, enabled: false });
@@ -55,6 +80,7 @@ const UserPanel = (props) => {
     <main>
       <div className="hideUserPanelMask" onClick={hideUserPanel}></div>
       <div className="userPanel">
+      {creationModal}
         <button
           href={`/dashboard?${props.userState.name}`}
           className="userPanelLinks"
@@ -68,6 +94,7 @@ const UserPanel = (props) => {
           New Group +
         </button>
         {groupLinks}
+        <button className='userPanelLinks' display={props.userState.groups.includes(props.currentDisplay) ? "none" : "inline"} id='userpanelBtnAddNB' onClick={() => {createModal('notebook', addNotebook)}}>Add New NoteBook to Active Group</button>
       </div>
     </main>
   );
