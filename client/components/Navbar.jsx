@@ -4,6 +4,14 @@ import UserPanel from './UserPanel.jsx'
 import TaskCategory from './TaskCategory.jsx'
 import TaskCategorySteps from './TaskCategorySteps.jsx'
 import LoginContainer from './LoginContainer';
+import ProgressBar from './ProgressBar.jsx';
+
+const progressData = [
+  { backgroundColor: "#FDDAD3", bgcolor: "#90D14F", barCat: "FrontEnd", completed: 25,  },
+  { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", barCat: "FrontEnd_UX", completed: 55 },
+  { backgroundColor: "#EAF6DC", bgcolor: "#90D14F", barCat: "BackEnd", completed: 53 },
+  { backgroundColor: "#D0F5F6", bgcolor: "#90D14F", barCat: "Data_Base", completed: 75 },
+];
 
 const Navbar = () => {
 
@@ -86,11 +94,15 @@ const Navbar = () => {
         {catButtons}
         {userPanel}
       </div>
+      <div className="progressbar">
+        {progressData.map((item, idx) => (
+          <ProgressBar key={idx} backgroundColor={item.backgroundColor} bgcolor={item.bgcolor} barCat={item.barCat} completed={item.completed} />
+        ))}
+      </div>
         {currentTaskShow}
     </div>
   )
 }
-
 
 export default Navbar;
 
