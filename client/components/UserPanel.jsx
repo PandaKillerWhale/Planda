@@ -58,8 +58,10 @@ const UserPanel = (props) => {
         >
           {props.userState.name}
         </button>
+        <h2 className="userpanel-header">Groups</h2>
+        <button className="new-group-btn userPanelLinks" onClick={createGroup}>New Group +</button>
         {groupLinks}
-        <button onClick={createGroup}>New Group</button>
+          
       </div>
     </main>
   );
