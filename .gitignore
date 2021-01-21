@@ -1,3 +1,6 @@
 # dependencies
 /node_modules
 server/settings.js
+client/.DS_Store
+.DS_Store
+server/.DS_Store
