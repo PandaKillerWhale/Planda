@@ -41,9 +41,10 @@ const Navbar = () => {
         setCards(data);
       });
     } else if (currentDisplay === userState.name) {
-      fetch('/api/user/cards/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  
+      fetch('/api/user/cards/')  // "/api/group/cards/""
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         setCards(data);
       });
     }
@@ -58,10 +59,8 @@ const Navbar = () => {
     const body = document.body;
     body.classList.toggle("dark-mode")
   }
-  /*
-    * cookieState is the username which is eventually passed down
-    * stays persistent so the frontend can keep track of the current logged in user
-  */
+
+
   const catButtons = [];
   taskCategories.forEach((category, index) => {
     catButtons.push(<div>
