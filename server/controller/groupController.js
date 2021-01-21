@@ -29,7 +29,7 @@ groupController.getNotebooks = (req, res, next) => {
   }
 
   // TODO: security flaw: a user could query random group ids and see their notebooks
-  const query = `SELECT n.name, n.notebook_id from notebooks n LEFT JOIN groups g ON n.group_id = g.group_id WHERE g.group_id = $1`;
+  const query = `SELECT n.name, n.notebook_id FROM notebooks n LEFT JOIN groups g ON n.group_id = g.group_id WHERE g.group_id = $1`;
   const queryParams = [req.params.groupId];
   db.query(query, queryParams).then((data) => {
     res.locals.notebooks = data.rows;
@@ -47,7 +47,7 @@ groupController.addGroup = (req, res, next) => {
   // add group
   const query = `WITH g AS (
   INSERT INTO groups (name)
-  VALUES ('Team Rocket')
+  VALUES ($1)
   RETURNING *
 )
 INSERT INTO user_groups (group_id, user_id)
@@ -56,7 +56,7 @@ VALUES (
       select group_id
       from g
     ),
-    123
+    $2
   )
 RETURNING group_id,(select name from g);`;
   const queryParams = [req.body.groupName, req.user.id];
