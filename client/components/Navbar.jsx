@@ -45,7 +45,6 @@ const Navbar = () => {
       fetch('/api/user/cards/')  
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setCards(data);
       });
     }
@@ -54,14 +53,11 @@ const Navbar = () => {
   //Create Task Categories based on current Display
   useEffect(() => {
     if (userState.groups.indexOf(currentDisplay) >= 0) {
-      console.log(userState.group_id[userState.groups.indexOf(currentDisplay)], 'group_id')
     fetch('api/group/notebooks/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  
       .then(res => res.json())
       .then(data => {
         const newNotebooks=[];
-        console.log(data,'data');
         data.forEach( notebook => newNotebooks.push(notebook.name));
-        console.log(newNotebooks,'newNB')
         setTaskCategories(newNotebooks);
       });
     } else if (currentDisplay === userState.name) {
@@ -139,6 +135,3 @@ const Navbar = () => {
 }
 
 export default Navbar;
-
-
-// src='client/assets/light_dark.png'

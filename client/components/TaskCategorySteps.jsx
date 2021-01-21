@@ -21,7 +21,7 @@ const TaskCategorySteps = (props) => {
         card_id:e.target.id
       })
     }
-    fetch('/api/deleteCard', deleteOptions)
+    fetch('/api/card/', deleteOptions)
     .then( response => response.json())
     .then( parsed =>  setData(Data.filter(element => element.card_id!== parsed.card_id)))
   }
