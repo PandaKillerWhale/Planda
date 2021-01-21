@@ -6,7 +6,7 @@ const TaskCategory = (props) => {
   return (
     <main>
       <div className={props.type}>
-        <h2 id={props.type} className="navbarTitle">{props.type}</h2>
+        <h1 id={props.type} className="navbarTitle">{props.type}</h1>
       </div>
     </main>
   );
