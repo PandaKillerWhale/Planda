@@ -18,11 +18,19 @@ router.get('/notebooks/:groupId', groupController.getNotebooks, (_, res) => {
 });
 
 /**
+ * Create Notebook in group
+ */
+router.post('/notebook/:groupId', groupController.addNotebook, (_, res) => {
+  res.json(res.locals.newNotebook)
+})
+
+/**
  * Create new Group
  */
-router.post('/group', groupController.addGroup, (_, res) => {
+router.post('/', groupController.addGroup, (_, res) => {
   res.json(res.locals.newGroup)
 });
+
 
 // router.delete('/group/:groupId');
 

@@ -2,6 +2,10 @@
 TRUNCATE groups CASCADE;
 INSERT INTO groups (group_id, name)
 VALUES (1, 'Welcome');
+
+-- synchronize automatic index seq with current number since we explicitly created indexes
+-- https://stackoverflow.com/questions/4448340/postgresql-duplicate-key-violates-unique-constraint
+SELECT setval('groups_group_id_seq',(SELECT MAX(group_id) FROM groups) +1); 
 ----------------- user_groups --------------
 ------------------ notebooks ---------------
 TRUNCATE notebooks CASCADE;
@@ -10,6 +14,9 @@ VALUES (1, 1, 'AppConfig'),
   (2, 1, 'Webpack'),
   (3, 1, 'Frontend'),
   (4, 1, 'Backend');
+
+-- synchronize automatic index seq with current number since we explicitly created indexes
+SELECT setval('notebooks_notebook_id_seq',(SELECT MAX(notebook_id) FROM notebooks) +1); 
 ----------------- cards --------------------
 TRUNCATE cards CASCADE;
 -- ------------AppConfig-----------------------
