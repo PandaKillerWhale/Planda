@@ -58,6 +58,9 @@ const UserPanel = (props) => {
     return setCreationModal([<CreationModal type={type} clickFunc={typePostCallback}/>])
   }
 
+  const hideUserPanel = (e) => {
+    props.setUserState({ ...props.userState, enabled: false });
+  };
 
   const groupLinks = [];
   for (let i = 0; i < props.userState.groups.length; i++) {
@@ -75,6 +78,7 @@ const UserPanel = (props) => {
 
   return (
     <main>
+      <div className="hideUserPanelMask" onClick={hideUserPanel}></div>
       <div className="userPanel">
       {creationModal}
         <button
@@ -85,6 +89,7 @@ const UserPanel = (props) => {
         >
           {props.userState.name}
         </button>
+        <h2 className="userpanel-header">Groups</h2>
         {groupLinks}
         <button onClick={createGroup}>New Group</button>
         <button className='userPanelLinks' display={props.userState.groups.includes(props.currentDisplay) ? "none" : "inline"} id='userpanelBtnAddNB' onClick={() => {createModal('notebook', addNotebook)}}>Add New NoteBook to Active Group</button>
