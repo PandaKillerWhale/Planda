@@ -1,17 +1,49 @@
 const db = require('../models/taskModel');
 
-//get Notebook
 const notebookController = {};
-notebookController.getNotebooks = (req, res, next) => {
-  const query = `SELECT n.name, n.notebook_id from notebooks n LEFT JOIN groups g ON n.group_id = g.group_id WHERE g.group_id = $1`;
-  const queryParams = [1];
-  db.query(query, queryParams).then((data) => {
-    res.locals.notebooks = data.rows;
+
+notebookController.getCards = (req, res, next) => {
+  if (!req.user.id) {
+    return next({ log: 'notebookController.getCards: user is not logged in' });
+  }
+  if (!req.params.notebookId) {
+    return next({ log: 'notebookController.getCards: no notebookId in url' });
+  }
+
+  const query = `SELECT c.*,
+  n.name as notebook_name,
+  n.group_id,
+  g.name as group_name
+FROM cards c
+  LEFT JOIN notebooks n ON c.notebook_id = n.notebook_id
+  LEFT JOIN groups g ON g.group_id = n.group_id
+WHERE n.notebook_id = $1
+};`;
+
+  const queryParams = [req.params.notebookId];
+  db.query(query, queryParams)
+    .then(({ rows }) => {
+      res.locals.cards = rows;
+      next();
+    })
+    .catch((err) => next(err));
+};
+
+notebookController.removeNotebook = (req, res, next) => {
+  if (!req.user.id) {
+    return next({ log: 'notebookController.removeNotebook: user is not logged in' });
+  }
+  if (!req.params.notebookId) {
+    return next({ log: 'notebookController.removeNotebook: no notebookId in url' });
+  }
+
+  const query = `DELETE FROM notebooks n WHERE notebook_id = $1 RETURNING *;`;
+  const queryParams = [req.params.notebookId];
+  db.query(query, queryParams).then(({ rows }) => {
+    res.locals.removed = rows[0];
     next();
   });
 };
-
-
 
 // notebookController.postNotebook = (req, res, next) => {
 //   const { notebook_id, group_id, name } = req.body;
@@ -22,7 +54,5 @@ notebookController.getNotebooks = (req, res, next) => {
 //     next();
 //   })
 // }
-
-
 
 module.exports = notebookController;
