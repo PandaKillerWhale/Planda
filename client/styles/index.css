@@ -369,12 +369,8 @@ body.dark-mode #theUserIcon {
 
 body.dark-mode .cards {
   background-color: rgba(20, 21, 31, 0.918);
-  margin: 1rem;
-  padding: 4%;
   box-shadow: inset 0 -3em 5em rgba(60, 58, 77, 0.1),
     0 0 0 2px rgba(112, 112, 112, 0.5), 0.3em 0.3em 1em rgba(255, 255, 255, 0.3);
-  width: 30rem;
-  height: 20rem;
 }
 
 body.dark-mode button {
@@ -391,7 +387,6 @@ body.dark-mode .loginContainer {
 body.dark-mode .loginContainer input {
   background: transparent;
   color: rgba(178, 185, 192, 0.739);
-  margin-bottom: 2rem;
 }
 
 body.dark-mode .loginContainer button {
