@@ -29,7 +29,21 @@ WHERE n.notebook_id = $1
     .catch((err) => next(err));
 };
 
+notebookController.removeNotebook = (req, res, next) => {
+  if (!req.user.id) {
+    return next({ log: 'notebookController.removeNotebook: user is not logged in' });
+  }
+  if (!req.params.notebookId) {
+    return next({ log: 'notebookController.removeNotebook: no notebookId in url' });
+  }
 
+  const query = `DELETE FROM notebooks n WHERE notebook_id = $1 RETURNING *;`;
+  const queryParams = [req.params.notebookId];
+  db.query(query, queryParams).then(({ rows }) => {
+    res.locals.removed = rows[0];
+    next();
+  });
+};
 
 // notebookController.postNotebook = (req, res, next) => {
 //   const { notebook_id, group_id, name } = req.body;
@@ -40,7 +54,5 @@ WHERE n.notebook_id = $1
 //     next();
 //   })
 // }
-
-
 
 module.exports = notebookController;
