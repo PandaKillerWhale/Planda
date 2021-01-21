@@ -326,6 +326,18 @@ body {
 #google {
   width: 50rem;
 }
+.creationModal {
+  position: absolute;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35rem;
+  height: 17rem;
+  top: 25%;
+  left: -222.5%;
+  z-index: 90;
+}
 
 /* ************************DARK MODE**************** */
 .dark-mode {
