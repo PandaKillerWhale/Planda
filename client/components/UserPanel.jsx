@@ -33,6 +33,10 @@ const UserPanel = (props) => {
       .catch((err) => console.error(err));
   };
 
+  const hideUserPanel = (e) => {
+    props.setUserState({ ...props.userState, enabled: false });
+  };
+
   const groupLinks = [];
   for (let i = 0; i < props.userState.groups.length; i++) {
     groupLinks.push(
@@ -49,6 +53,7 @@ const UserPanel = (props) => {
 
   return (
     <main>
+      <div className="hideUserPanelMask" onClick={hideUserPanel}></div>
       <div className="userPanel">
         <button
           href={`/dashboard?${props.userState.name}`}
@@ -58,8 +63,11 @@ const UserPanel = (props) => {
         >
           {props.userState.name}
         </button>
+        <h2 className="userpanel-header">Groups</h2>
+        <button className="new-group-btn userPanelLinks" onClick={createGroup}>
+          New Group +
+        </button>
         {groupLinks}
-        <button onClick={createGroup}>New Group</button>
       </div>
     </main>
   );

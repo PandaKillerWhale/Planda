@@ -80,7 +80,15 @@ const Navbar = () => {
 
     // USER PANEL ENABLER 
     const userPanel = [];
-    if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} setCurrentDisplay={setCurrentDisplay} setUserState={setUserState}/>)
+    if (userState.enabled) userPanel.push(
+      <UserPanel 
+        key='UserPanel1' 
+        userState={userState} 
+        setCurrentDisplay={setCurrentDisplay} 
+        setUserState={setUserState}
+      />
+    )
+
     // LOGIN ENABLER
     const login = [];
   if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState}/>)
@@ -96,7 +104,10 @@ const Navbar = () => {
 
   return (
     <div>
-     <div id='Icons'><img  id='theUserIcon' onClick={switchUserPanel} /><img id='DarkLightIcon'  onClick={darkLightMode} /></div>
+     <div id='Icons'>
+       <img  id='theUserIcon' onClick={switchUserPanel} />
+        <img id='DarkLightIcon'  onClick={darkLightMode} />
+     </div>
       <CurrentGroupDisplay
         name={currentDisplay}
         id={getGroupIdFromName(currentDisplay)}
