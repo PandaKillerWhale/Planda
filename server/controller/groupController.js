@@ -41,6 +41,8 @@ groupController.addGroup = (req, res, next) => {
   if (!req.user.id) {
     return next({ log: 'groupController.addGroup: user is not logged in' });
   }
+  if (!req.body.groupName)
+    return next({ log: 'groupController.addGroup: did not receive groupName in body of request' });
 
   // add group
   const query = `WITH g AS (
@@ -64,6 +66,24 @@ RETURNING group_id,(select name from g);`;
       next();
     })
     .catch((err) => next(err));
+};
+
+groupController.addNotebook = (req, res, next) => {
+  if (!req.user.id) {
+    return next({ log: 'groupController.addNotebook: user is not logged in' });
+  }
+  if (!req.params.groupId) return next({ log: 'groupController.addNotebook: no groupId in url' });
+  if (!req.body.notebookName) return next({ log: 'groupController.addNotebook: no notebookName in request body' });
+
+  const query = `INSERT INTO notebooks (name, group_id)
+VALUES ( $1 , $2) RETURNING *;`
+  const queryParams = [req.body.notebookName, req.params.groupId]
+
+  db.query(query, queryParams).then(({rows}) => {
+    res.locals.newNotebook = rows[0]
+    next()
+  }).catch(err => next(err))
+
 };
 
 module.exports = groupController;
