@@ -19,7 +19,7 @@ WHERE ug.user_id = $1 AND ug.group_id = $2;`;
   db.query(query, queryParams).then(({ rows }) => {
     res.locals.cards = rows;
     return next();
-  });
+  }).catch(err => next(err));
 };
 
 groupController.getNotebooks = (req, res, next) => {
