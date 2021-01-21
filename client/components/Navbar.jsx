@@ -15,7 +15,7 @@ const progressData = [
 
 const Navbar = () => {
 
-  const [taskCategories, setTaskCategories] = useState(['AppConfig', 'Webpack', 'Backend', 'Frontend']);
+  const [taskCategories, setTaskCategories] = useState([]);
   const [currentTaskCat, toggleCurrentTask] = useState('');
   const [cards, setCards] = useState([]);
   const [userState, setUserState] = useState({name:'', id:'', groups:[], group_id:[], enabled:false});
@@ -32,15 +32,16 @@ const Navbar = () => {
       });
   }, []);
 
+  //Pulling Card data based on current displays
   useEffect(() => {
     if (userState.groups.indexOf(currentDisplay) >= 0) {
-    fetch('/api/cards/group/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  // "/api/group/cards/""
+    fetch('/api/group/cards/'+userState.group_id[userState.groups.indexOf(currentDisplay)]) 
       .then(res => res.json())
       .then(data => {
         setCards(data);
       });
     } else if (currentDisplay === userState.name) {
-      fetch('/api/user/cards/')  // "/api/group/cards/""
+      fetch('/api/user/cards/')  
       .then(res => res.json())
       .then(data => {
         console.log(data)
@@ -48,6 +49,24 @@ const Navbar = () => {
       });
     }
   }, [currentDisplay])
+
+  //Create Task Categories based on current Display
+  useEffect(() => {
+    if (userState.groups.indexOf(currentDisplay) >= 0) {
+      console.log(userState.group_id[userState.groups.indexOf(currentDisplay)], 'group_id')
+    fetch('api/group/notebooks/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  
+      .then(res => res.json())
+      .then(data => {
+        const newNotebooks=[];
+        console.log(data,'data');
+        data.forEach( notebook => newNotebooks.push(notebook.name));
+        console.log(newNotebooks,'newNB')
+        setTaskCategories(newNotebooks);
+      });
+    } else if (currentDisplay === userState.name) {
+      setTaskCategories(userState.groups)
+    }
+  }, [cards])
 
   const taskChecker = (e) => {
     return toggleCurrentTask(e.target.id);

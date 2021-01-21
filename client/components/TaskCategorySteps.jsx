@@ -4,7 +4,7 @@ const TaskCategorySteps = (props) => {
   /* variable and state declaration */
 
   const createdDivs = [];
-  const [Data, setData] = useState(props.cardData.filter( card => card.notebook_name === props.type));
+  const [Data, setData] = useState(props.userData.groups.includes(props.type) ? props.cardData.filter( card => card.group_name === props.type) : props.cardData.filter( card => card.notebook_name === props.type));
   const [notebookData, setNotebookData] = useState(() => Data[0] ? [Data[0].notebook_name, Data[0].notebook_id] : null);
 
   /*
