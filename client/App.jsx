@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './components/Navbar.jsx';
+import ProgressBar from './components/ProgressBar.jsx';
 import Typewriter from './components/Typewritter.jsx';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import LoginContainer from './components/LoginContainer.jsx';
