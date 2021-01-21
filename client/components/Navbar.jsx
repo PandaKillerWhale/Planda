@@ -5,7 +5,10 @@ import TaskCategory from './TaskCategory.jsx'
 import TaskCategorySteps from './TaskCategorySteps.jsx'
 import LoginContainer from './LoginContainer';
 import ProgressBar from './ProgressBar.jsx';
+import ProgressBarOverall from './ProgressBarOverall.jsx';
 import CurrentGroupDisplay from './CurrentGroupDisplay.jsx';
+
+
 
 const Navbar = () => {
 
@@ -41,6 +44,8 @@ const Navbar = () => {
           setCards(data);
         });
     }
+    console.log(`cards 1: ${cards[1]}`);
+    console.log(`cards : ${cards.group_id}`);
   }, [currentDisplay])
 
   //Create Task Categories based on current Display
@@ -88,13 +93,6 @@ const Navbar = () => {
 
   // USER PANEL ENABLER 
   const userPanel = [];
-  if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} setCurrentDisplay={setCurrentDisplay} setUserState={setUserState} />)
-  // LOGIN ENABLER
-  const login = [];
-  if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState} />)
-
-  // USER PANEL ENABLER 
-  const userPanel = [];
   if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} currentDisplay={currentDisplay} setCurrentDisplay={setCurrentDisplay} taskCategories={taskCategories} setTaskCategories={setTaskCategories} setUserState={setUserState} />)
   // LOGIN ENABLER
   const login = [];
@@ -109,43 +107,86 @@ const Navbar = () => {
     return userState.group_id[index];
   };
 
-  /* PROGRESS BAR FUNCTION */
+  /***************  PROGRESS BAR FUNCTION *********************/
 
-  /* 2. PROGRESS OVERALL CARDS FUNCTION :: MAIN PROGRESS BAR */
-  // const overAllCards = [];
-  // const cardsFinished = [];
-
-  // for (let i = 0; i < cards.length; i++) {
-  //   overAllCards.push(cards[i]);
-  //   if (cards[i].status === 1) {
-  //     cardsFinished.push(cards);
-  //   }
-  // }
-
-  const progressData = [
-    { backgroundColor: "#FDDAD3", bgcolor: "#90D14F", barCat: "FrontEnd", completed: 25, status: 0 },
-    { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", barCat: "FrontEnd_UX", completed: 55, status: 0 },
-    { backgroundColor: "#EAF6DC", bgcolor: "#90D14F", barCat: "BackEnd", completed: 53, status: 1 },
-    { backgroundColor: "#D0F5F6", bgcolor: "#90D14F", barCat: "Data_Base", completed: 75, status: 1 },
+  let cardsUnfiltered = [
+    { backgroundColor: "#FDDAD3", bgcolor: "#90D14F", taskCategories: "FrontEnd", completed: 25, status: 0 },
+    { backgroundColor: "#FDDAD3", bgcolor: "#90D14F", taskCategories: "FrontEnd", completed: 25, status: 1 },
+    { backgroundColor: "#FDDAD3", bgcolor: "#90D14F", taskCategories: "FrontEnd", completed: 25, status: 1 },
+    { backgroundColor: "#FDDAD3", bgcolor: "#90D14F", taskCategories: "FrontEnd", completed: 25, status: 1 },
+    { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", taskCategories: "FrontEnd_UX", completed: 55, status: 0 },
+    { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", taskCategories: "FrontEnd_UX", completed: 55, status: 1 },
+    { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", taskCategories: "FrontEnd_UX", completed: 55, status: 0 },
+    { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", taskCategories: "FrontEnd_UX", completed: 55, status: 0 },
+    { backgroundColor: "#EAF6DC", bgcolor: "#90D14F", taskCategories: "BackEnd", completed: 53, status: 1 },
+    { backgroundColor: "#EAF6DC", bgcolor: "#90D14F", taskCategories: "BackEnd", completed: 53, status: 1 },
+    { backgroundColor: "#EAF6DC", bgcolor: "#90D14F", taskCategories: "BackEnd", completed: 53, status: 1 },
+    { backgroundColor: "#EAF6DC", bgcolor: "#90D14F", taskCategories: "BackEnd", completed: 53, status: 1 },
+    { backgroundColor: "#D0F5F6", bgcolor: "#90D14F", taskCategories: "Data_Base", completed: 75, status: 0 },
+    { backgroundColor: "#D0F5F6", bgcolor: "#90D14F", taskCategories: "Data_Base", completed: 75, status: 0 },
+    { backgroundColor: "#D0F5F6", bgcolor: "#90D14F", taskCategories: "Data_Base", completed: 75, status: 1 },
+    { backgroundColor: "#D0F5F6", bgcolor: "#90D14F", taskCategories: "Data_Base", completed: 75, status: 1 },
   ];
 
-  /* 1. PROGRESS BAR FUNCTION :: INDIVIDUAL PROGRESS BAR PER BOARD */
-  // const progressBar = [];
-  // const boardCards = cards.filter(card => );
-  // console.log(`sample cards detail : ${cards[0]}`);
+  // /* CALCULATE CARDS IN A GROUP FINISHED PERCENTAGE */
 
-  // progressData.map((item, idx) => {
-  //   progressBar.push(
-  //     <div className="progressbar">
-  //       <ProgressBar key={idx} backgroundColor={item.backgroundColor} bgcolor={item.bgcolor} barCat={item.barCat} completed={item.completed} />
-  //     </div>
-  //   )
-  // });
-  // console.log(`overAllCards numer = ${overAllCards.length}`);
-  // console.log(`overAllCards = ${cardsFinished.length}`);
-  // /* PROGRESS BAR FUNCTION */
+  // const cardsByGroup = cards.filter(card => card.notebook_name === "AppConfig");
+  // const cardsGroupFinished = cardsUnfiltered.filter(card => card.barCat === "FrontEnd" && cards.status === 1);
+  // const cardsGroupPercentage = Math.floor(cardsGroupFinished / cardsByGroup * 100);
 
-  // GROUP ICON DIVS AND PROGRESSBAR
+  // console.log(`cards: ${cards} ${cards.length}`);
+  // console.log('card0', cards[0])
+  // console.log(`taskCategories: ${taskCategories}`);
+  // console.log(`cardsByGroup: ${cardsByGroup}`);
+
+  const progressByGroup = [];
+  const progressOverall = [];
+  try {
+    const cardsOnCurrGroupNotebooks = cards.filter(c => taskCategories.includes(c.notebook_name));
+    // console.log('c', cardsOnCurrGroupNotebooks)
+    const cardsPerNotebook = cardsOnCurrGroupNotebooks.reduce((acc, c) => {
+      if (!c) return acc
+      if (!acc[c.notebook_name]) acc[c.notebook_name] = []
+      acc[c.notebook_name].push(c)
+      return acc
+    }, {})
+    // console.log('cp', cardsPerNotebook)
+    const notebookCompletionPercentage = Object.entries(cardsPerNotebook).map(([notebookName, nCards]) => {
+      const finished = nCards.filter(c => c.status === 1).length
+      const percentage = nCards.length !== 0 ? Math.round(finished / nCards.length * 100) : 0
+      return { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", taskCategories: notebookName, cardsGroupPercentage: percentage, }
+    })
+    // ALL NOTEBOOK COMPLETMENT PERCENTAGE
+    const finished = cards.filter(c => c.status === 1).length;
+    const percentage = cards.length !== 0 ? Math.round(finished / cards.length * 100) : 0;
+    const allNotebookCompletionPercentage = { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", allPercentage: percentage, }
+
+    // console.log(notebookCompletionPercentage)
+    // console.log(`allNotebookCompletionPercentage, ${allNotebookCompletionPercentage}`)
+    const progressDataModel = [
+      { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", taskCategories: "FrontEnd", cardsGroupPercentage: 25, },
+      { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", taskCategories: "FrontEnd_UX", cardsGroupPercentage: 55 },
+      { backgroundColor: "#EAF6DC", bgcolor: "#90D14F", taskCategories: "BackEnd", cardsGroupPercentage: 53 },
+      // { backgroundColor: "#FDDAD3", bgcolor: "#90D14F", taskCategories: "FrontEnd", cardsGroupPercentage: 21 },
+    ];
+
+    notebookCompletionPercentage.map((item, idx) => {
+      progressByGroup.push(
+        <ProgressBar key={idx} backgroundColor={item.backgroundColor} bgcolor={item.bgcolor} taskCategories={item.taskCategories} completed={item.cardsGroupPercentage} />
+      )
+    });
+
+    /* ProgressOverall Bar */
+
+    [allNotebookCompletionPercentage].map((item, idx) => {
+      progressOverall.push(
+        <ProgressBarOverall key={idx} backgroundColor={item.backgroundColor} bgcolor={item.bgcolor} allPercentage={item.allPercentage} />
+      )
+    });
+    // console.log('all good')
+  } catch (err) { console.log('no cards yet', err) }
+
+
   return (
     <div>
       <div id='Icons'>
@@ -165,9 +206,10 @@ const Navbar = () => {
         {userPanel}
       </div>
       <div className="progressbar">
-        {progressData.map((item, idx) => (
-          <ProgressBar key={idx} backgroundColor={item.backgroundColor} bgcolor={item.bgcolor} barCat={item.barCat} completed={item.completed} />
-        ))}
+        {progressByGroup}
+      </div>
+      <div className="progressOverall">
+        {progressOverall}
       </div>
       {currentTaskShow}
     </div>
