@@ -90,8 +90,10 @@ const UserPanel = (props) => {
           {props.userState.name}
         </button>
         <h2 className="userpanel-header">Groups</h2>
+        <button className="new-group-btn userPanelLinks" onClick={createGroup}>
+          New Group +
+        </button>
         {groupLinks}
-        <button onClick={createGroup}>New Group</button>
         <button className='userPanelLinks' display={props.userState.groups.includes(props.currentDisplay) ? "none" : "inline"} id='userpanelBtnAddNB' onClick={() => {createModal('notebook', addNotebook)}}>Add New NoteBook to Active Group</button>
       </div>
     </main>
