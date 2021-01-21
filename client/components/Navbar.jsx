@@ -9,7 +9,7 @@ import CurrentGroupDisplay from './CurrentGroupDisplay.jsx';
 
 const Navbar = () => {
 
-  const [taskCategories, setTaskCategories] = useState(['AppConfig', 'Webpack', 'Backend', 'Frontend']);
+  const [taskCategories, setTaskCategories] = useState([]);
   const [currentTaskCat, toggleCurrentTask] = useState('');
   const [cards, setCards] = useState([]);
   const [userState, setUserState] = useState({ name: '', id: '', groups: [], group_id: [], enabled: false });
@@ -26,8 +26,10 @@ const Navbar = () => {
       });
   }, []);
 
+  //Pulling Card data based on current displays
   useEffect(() => {
     if (userState.groups.indexOf(currentDisplay) >= 0) {
+<<<<<<< HEAD
       fetch('/api/group/cards/' + userState.group_id[userState.groups.indexOf(currentDisplay)])  // "/api/group/cards/""
         .then(res => res.json())
         .then(data => {
@@ -40,8 +42,36 @@ const Navbar = () => {
           console.log(data)
           setCards(data);
         });
+=======
+    fetch('/api/group/cards/'+userState.group_id[userState.groups.indexOf(currentDisplay)]) 
+      .then(res => res.json())
+      .then(data => {
+        setCards(data);
+      });
+    } else if (currentDisplay === userState.name) {
+      fetch('/api/user/cards/')  
+      .then(res => res.json())
+      .then(data => {
+        setCards(data);
+      });
+>>>>>>> main
     }
   }, [currentDisplay])
+
+  //Create Task Categories based on current Display
+  useEffect(() => {
+    if (userState.groups.indexOf(currentDisplay) >= 0) {
+    fetch('api/group/notebooks/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  
+      .then(res => res.json())
+      .then(data => {
+        const newNotebooks=[];
+        data.forEach( notebook => newNotebooks.push(notebook.name));
+        setTaskCategories(newNotebooks);
+      });
+    } else if (currentDisplay === userState.name) {
+      setTaskCategories(userState.groups)
+    }
+  }, [cards])
 
   const taskChecker = (e) => {
     return toggleCurrentTask(e.target.id);
@@ -78,6 +108,16 @@ const Navbar = () => {
   const login = [];
   if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState} />)
 
+<<<<<<< HEAD
+=======
+    // USER PANEL ENABLER 
+    const userPanel = [];
+    if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} currentDisplay={currentDisplay} setCurrentDisplay={setCurrentDisplay} taskCategories={taskCategories} setTaskCategories={setTaskCategories} setUserState={setUserState} />)
+    // LOGIN ENABLER
+    const login = [];
+  if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState}/>)
+  
+>>>>>>> main
   const getGroupIdFromName = (name) => {
     // if name is not set
     if (!name) return;
@@ -126,7 +166,14 @@ const Navbar = () => {
   // GROUP ICON DIVS AND PROGRESSBAR
   return (
     <div>
+<<<<<<< HEAD
       <div id='Icons'><img id='theUserIcon' onClick={switchUserPanel} /><img id='DarkLightIcon' onClick={darkLightMode} /></div>
+=======
+     <div id='Icons'>
+       <img  id='theUserIcon' onClick={switchUserPanel} />
+        <img id='DarkLightIcon'  onClick={darkLightMode} />
+     </div>
+>>>>>>> main
       <CurrentGroupDisplay
         name={currentDisplay}
         id={getGroupIdFromName(currentDisplay)}
@@ -150,5 +197,8 @@ const Navbar = () => {
 }
 
 export default Navbar;
+<<<<<<< HEAD
 
 // src='client/assets/light_dark.png'
+=======
+>>>>>>> main

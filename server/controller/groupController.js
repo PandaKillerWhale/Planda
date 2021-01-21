@@ -94,7 +94,7 @@ groupController.addNotebook = (req, res, next) => {
   if (!req.params.groupId) return next({ log: 'groupController.addNotebook: no groupId in url' });
   if (!req.body.notebookName)
     return next({ log: 'groupController.addNotebook: no notebookName in request body' });
-
+  console.log(req.body.notebookName, 'NB Name')
   const query = `INSERT INTO notebooks (name, group_id)
 VALUES ( $1 , $2) RETURNING *;`;
   const queryParams = [req.body.notebookName, req.params.groupId];
