@@ -57,11 +57,8 @@ const Navbar = () => {
         {progressData.map((item, idx) => (
           <ProgressBar key={idx} backgroundColor={item.backgroundColor} bgcolor={item.bgcolor} barCat={item.barCat} completed={item.completed} />
         ))}
-      <div className="progressbarOverall">
-        {progressData.map((item, idx) => (
-          <ProgressBar key={idx} backgroundColor={item.backgroundColor} bgcolor={item.bgcolor} barCat={item.barCat} completed={item.completed} />
-        ))}
       </div>
+      
         {currentTaskShow}
     </div>
   )
