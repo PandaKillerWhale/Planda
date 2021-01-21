@@ -51,13 +51,9 @@ const LoginPage = () => {
     window.location.href = '/auth/google'
   }
 
-  const logoutHandler = () => {
-    window.location.href = '/auth/logout'
-  }
-
   return (
     <div id='loginContainer' className="outerContainer">
-      <div className="loginContainer">
+      <div className="floatingModal">
         {/* <input  id="name" placeholder="username"></input>
         <input type='password' id="password" placeholder="password"></input>
         <button onClick={handleSignup}>Sign up</button> */}
