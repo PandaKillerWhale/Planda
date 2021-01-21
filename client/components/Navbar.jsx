@@ -5,14 +5,14 @@ import TaskCategorySteps from './TaskCategorySteps.jsx';
 import ProgressBar from './ProgressBar.jsx';
 
 const progressData = [
-  { backgroundColor: "#FDDAD3", bgcolor: "#90D14F", barCat: "FrontEnd_I", completed: 33 },
-  { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", barCat: "FrontEnd_II", completed: 35 },
-  { backgroundColor: "#EAF6DC", bgcolor: "#90D14F", barCat: "BackEnd_I", completed: 53 },
-  { backgroundColor: "#D0F5F6", bgcolor: "#90D14F", barCat: "BackEnd_II", completed: 75 },
+  { backgroundColor: "#FDDAD3", bgcolor: "#90D14F", barCat: "FrontEnd", completed: 25,  },
+  { backgroundColor: "#FFFDDA", bgcolor: "#90D14F", barCat: "FrontEnd_UX", completed: 55 },
+  { backgroundColor: "#EAF6DC", bgcolor: "#90D14F", barCat: "BackEnd", completed: 53 },
+  { backgroundColor: "#D0F5F6", bgcolor: "#90D14F", barCat: "Data_Base", completed: 75 },
 ];
 
 const Navbar = () => {
-  const [taskCategories, setTaskCategories] = useState(['AppConfig', 'Webpack', 'Backend', 'Frontend', 'Wei', 'Alex', 'Final']);
+  const [taskCategories, setTaskCategories] = useState(['FrontEnd', 'FrontEnd_UX', 'BackEnd', 'Data_Base', ]);
   const [currentTaskCat, toggleCurrentTask] = useState('')
   const [cookieState, setCookieState] = useState('');
 
@@ -40,12 +40,13 @@ const Navbar = () => {
       </h1>
     </div>)
   });
-const currentTaskShow = [];
+  const currentTaskShow = [];
   if (currentTaskCat.length > 1) {
     currentTaskShow.push(<div className="grid-container">
         <TaskCategorySteps key={`Steps${currentTaskCat}`} cookieState={cookieState} type={currentTaskCat}/>
     </div>)
   }
+
   return (
     <div>
       <div className="welcome">Welcome, {cookieState}</div>
@@ -53,6 +54,10 @@ const currentTaskShow = [];
         {catButtons}
       </div>
       <div className="progressbar">
+        {progressData.map((item, idx) => (
+          <ProgressBar key={idx} backgroundColor={item.backgroundColor} bgcolor={item.bgcolor} barCat={item.barCat} completed={item.completed} />
+        ))}
+      <div className="progressbarOverall">
         {progressData.map((item, idx) => (
           <ProgressBar key={idx} backgroundColor={item.backgroundColor} bgcolor={item.bgcolor} barCat={item.barCat} completed={item.completed} />
         ))}
