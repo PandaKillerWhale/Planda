@@ -34,11 +34,6 @@ body {
   margin-bottom: 2%;
 }
 
-.progressbar {
-  width: 85%;
-  width: 85;
-}
-
 .cards {
   background: rgba(255, 255, 255, 0.7);
   margin: 1rem;
@@ -77,6 +72,7 @@ body {
   text-align: center;
 }
 
+
 .container {
   display: grid;
   margin: auto;
@@ -86,6 +82,37 @@ body {
   border-radius: 5px;
   box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.2);
   width: 85%;
+}
+
+.progressbar{
+  display: grid;
+  margin: auto;
+  height: 10;
+  grid-template-columns: repeat(4, 1fr);
+  width: 85%;
+}
+
+.progressbarOverall{
+  display: grid;
+  margin: auto;
+  height: 10;
+  grid-template-columns: repeat(4, 1fr);
+  width: 85%;
+}
+
+.barContainerStyles {
+  height: 5;
+  justify-items: left;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.labelStyles {
+  padding: 2;
+  color: black;
+  fontWeight: bold;
 }
 
 .container h1 {
