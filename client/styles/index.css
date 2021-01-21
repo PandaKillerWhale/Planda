@@ -391,7 +391,7 @@ body.dark-mode .container {
     0 0 0 2px rgba(112, 112, 112, 0.5), 0.3em 0.3em 1em rgba(255, 255, 255, 0.3);
 }
 
-body.dark-mode > #root > div > div:nth-child(2) > div.container > main > div {
+body.dark-mode > #root > div > div:nth-child(2) > div.container > main > .userPanel {
   background-color: rgba(20, 21, 31, 0.918);
   box-shadow: inset 0 -3em 5em rgba(60, 58, 77, 0.1),
     0 0 0 2px rgba(112, 112, 112, 0.5), 0.3em 0.3em 1em rgba(177, 177, 177, 0.3);
