@@ -191,14 +191,39 @@ body {
   margin-top: 15rem;
 }
 
-.loginContainer {
-  background: rgba(255, 255, 255, 0.7);
-  margin: 1rem;
-  padding: 2rem;
-  box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.2);
+.creationModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* width: 35rem; */
+  /* height: 17rem; */
 }
 
-.loginContainer input {
+.creationModal label {
+  font-size: 1.5em;
+}
+
+.floatingModal {
+  position:fixed;
+  left:50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.2);
+  margin: 1rem;
+  padding: 2rem;
+}
+
+.logout-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 50px;
+  color: grey;
+}
+
+.floatingModal input {
   display: flex;
   text-align: center;
   border: none;
@@ -211,7 +236,7 @@ body {
   margin-bottom: 2rem;
 }
 
-.loginContainer button {
+.floatingModal button {
   color: #000;
   width: 135px;
   font-family: sans-serif;
@@ -222,7 +247,7 @@ body {
   border: 2px solid hsla(0, 0%, 66.3%, 0.3);
 }
 
-.loginContainer button:hover {
+.floatingModal button:hover {
   cursor: pointer;
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
 }
@@ -336,21 +361,23 @@ body {
   margin-top: -2rem;
   margin-bottom: 2rem;
 }
+
+.deleteGroup {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight:bold;
+}
+
+.deleteGroup:hover {
+  color: red;
+}
+
 #google {
   width: 50rem;
 }
-.creationModal {
-  position: absolute;
-  background-color: red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35rem;
-  height: 17rem;
-  top: 25%;
-  left: -222.5%;
-  z-index: 90;
-}
+
 
 /* ************************DARK MODE**************** */
 .dark-mode {
@@ -364,7 +391,7 @@ body.dark-mode .container {
     0 0 0 2px rgba(112, 112, 112, 0.5), 0.3em 0.3em 1em rgba(255, 255, 255, 0.3);
 }
 
-body.dark-mode > #root > div > div:nth-child(2) > div.container > main > div {
+body.dark-mode > #root > div > div:nth-child(2) > div.container > main > .userPanel {
   background-color: rgba(20, 21, 31, 0.918);
   box-shadow: inset 0 -3em 5em rgba(60, 58, 77, 0.1),
     0 0 0 2px rgba(112, 112, 112, 0.5), 0.3em 0.3em 1em rgba(177, 177, 177, 0.3);
@@ -390,18 +417,18 @@ body.dark-mode button {
   background-color: rgba(20, 21, 31, 0.918);
 }
 
-body.dark-mode .loginContainer {
+body.dark-mode .floatingModal {
   background-color: rgba(20, 21, 31, 0.918);
   box-shadow: inset 0 -3em 5em rgba(60, 58, 77, 0.1),
     0 0 0 2px rgba(112, 112, 112, 0.5), 0.3em 0.3em 1em rgba(255, 255, 255, 0.3);
 }
 
-body.dark-mode .loginContainer input {
+body.dark-mode .floatingModal input {
   background: transparent;
   color: rgba(178, 185, 192, 0.739);
 }
 
-body.dark-mode .loginContainer button {
+body.dark-mode .floatingModal button {
   color: rgba(178, 185, 192, 0.739);
   border: 2px solid hsla(0, 0%, 66.3%, 0.3);
 }

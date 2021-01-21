@@ -7,7 +7,7 @@ router.get('/cards/:notebookId', notebookController.getCards, (req, res) => {
   res.json(res.locals.cards);
 });
 
-router.delete('/notebook/:notebookId', notebookController.removeNotebook, (req, res) => {
+router.delete('/:notebookId', notebookController.removeNotebook, (req, res) => {
   res.json(res.locals.removed);
 });
 

@@ -4,9 +4,10 @@ import React from 'react';
 const CreationModal = (props) => {
 
   return (
-      <div className="creationModal">
+      <div className="creationModal floatingModal ">
           <label>{`New ${props.type} Creation`}</label><br/>
-          <input label={props.type} id='creationModalInput' placeholder={`New ${props.type} name`}></input><button onClick={() => props.clickFunc(document.querySelector('#creationModalInput').value)} >Add {props.type}</button>
+          <input label={props.type} id='creationModalInput' placeholder={`New ${props.type} name`}></input>
+          <button onClick={() => props.clickFunc(document.querySelector('#creationModalInput').value)} >Add {props.type}</button>
       </div>
   );
 }
