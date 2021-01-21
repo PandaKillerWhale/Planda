@@ -6,7 +6,7 @@ const PORT = 3000;
 
 const groupRouter = require('./routes/groupRoutes')
 const cardRouter = require('./routes/cardRoutes')
-// const notebookRouter = require('./routes/notebookRoutes')
+const notebookRouter = require('./routes/notebookRoutes')
 const userRouter = require('./routes/userRoutes')
 
 // body parsing/url parsing
@@ -22,7 +22,6 @@ app.use('/build', express.static(path.resolve(__dirname, '../build')));
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 // routes
-
 app.use('/api/group', groupRouter)
 app.use('/api/card', cardRouter)
 app.use('/api/user', userRouter)
