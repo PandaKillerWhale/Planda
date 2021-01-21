@@ -30,7 +30,8 @@ const Navbar = () => {
         const newUser = {name:data.username,id:data.id, groups:[], group_id:[]};
         data.userGroups.forEach( element => (newUser.groups.push(element.name), newUser.group_id.push(element.group_id)));
         setUserState(newUser);
-      });
+      })
+      .catch(err => console.error(err))
   }, []);
 
   //Pulling Card data based on current displays
@@ -98,7 +99,7 @@ const Navbar = () => {
     if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} currentDisplay={currentDisplay} setCurrentDisplay={setCurrentDisplay} taskCategories={taskCategories} setTaskCategories={setTaskCategories} setUserState={setUserState} />)
     // LOGIN ENABLER
     const login = [];
-  if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState}/>)
+    if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState}/>)
   
   const getGroupIdFromName = (name) => {
     // if name is not set
