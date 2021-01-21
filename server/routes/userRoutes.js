@@ -20,7 +20,6 @@ router.get('/groups', userController.getGroups, (req, res) => {
   });
 });
 
-// router.delete('/user')
 // router.put('/user')
 
 module.exports = router;

@@ -5,6 +5,7 @@ import TaskCategory from './TaskCategory.jsx'
 import TaskCategorySteps from './TaskCategorySteps.jsx'
 import LoginContainer from './LoginContainer';
 import ProgressBar from './ProgressBar.jsx';
+import CurrentGroupDisplay from './CurrentGroupDisplay.jsx';
 
 const progressData = [
   { backgroundColor: "#FDDAD3", bgcolor: "#90D14F", barCat: "FrontEnd", completed: 25,  },
@@ -98,15 +99,30 @@ const Navbar = () => {
 
     // USER PANEL ENABLER 
     const userPanel = [];
-    if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} currentDisplay={currentDisplay} setCurrentDisplay={setCurrentDisplay} taskCategories={taskCategories} setTaskCategories={setTaskCategories} />)
+    if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} currentDisplay={currentDisplay} setCurrentDisplay={setCurrentDisplay} taskCategories={taskCategories} setTaskCategories={setTaskCategories} setUserState={setUserState} />)
     // LOGIN ENABLER
     const login = [];
-    if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState}/>)
+  if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState}/>)
+  
+  const getGroupIdFromName = (name) => {
+    // if name is not set
+    if (!name) return;
+    const index = userState.groups.indexOf(name);
+    // if name is user name (personal board)
+    if (index < 0) return;
+    return userState.group_id[index];
+  };
 
   return (
     <div>
      <div id='Icons'><img  id='theUserIcon' onClick={switchUserPanel} /><img id='DarkLightIcon'  onClick={darkLightMode} /></div>
-      <div className="welcome">{currentDisplay}</div>
+      <CurrentGroupDisplay
+        name={currentDisplay}
+        id={getGroupIdFromName(currentDisplay)}
+        setUserState={setUserState}
+        userState={userState}
+        setCurrentDisplay={setCurrentDisplay}
+      />
       {login}
       <div className="container">
         {catButtons}
