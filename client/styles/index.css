@@ -26,7 +26,6 @@ body {
   /* background-attachment: fixed; */
 }
 
-
 .welcome {
   width: 50%;
   margin: auto;
@@ -73,7 +72,6 @@ body {
   text-align: center;
 }
 
-
 .container {
   display: grid;
   margin: auto;
@@ -81,13 +79,12 @@ body {
   justify-items: center;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
-  box-shadow: inset 0 -3em 5em rgba(0,0,0,0.1),
-  0 0  0 2px rgba(156, 156, 156,0.5),
-  0.3em 0.3em 1em rgba(0,0,0,0.3);
+  box-shadow: inset 0 -3em 5em rgba(0, 0, 0, 0.1),
+    0 0 0 2px rgba(156, 156, 156, 0.5), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
   width: 85%;
 }
 
-.progressbar{
+.progressbar {
   display: grid;
   margin: auto;
   height: 10;
@@ -95,7 +92,7 @@ body {
   width: 85%;
 }
 
-.progressbarOverall{
+.progressbarOverall {
   display: grid;
   margin: auto;
   height: 10;
@@ -115,7 +112,7 @@ body {
 .labelStyles {
   padding: 2;
   color: black;
-  fontWeight: bold;
+  font-weight: bold;
 }
 
 .container h1 {
@@ -239,7 +236,6 @@ body {
   margin-bottom: 3%;
 }
 
-
 /* ******************THIS IS WHAT ALEX MADE LOOK UGLY ************************* */
 /* #theUser {
   position: fixed;
@@ -251,48 +247,49 @@ body {
   max-width: 3%;
   max-height: auto;
   position: fixed;
-  top:5.75%;
-  left:91.5%;
-  z-index:100;
-  content:url("../assets/user.png");
+  top: 5.75%;
+  left: 91.5%;
+  z-index: 100;
+  content: url('../assets/user.png');
   opacity: 0.75;
 }
 #DarkLightIcon {
   max-width: 3.5%;
   max-height: auto;
   position: fixed;
-  top:5%;
-  left:95%;
-  z-index:100;
-  content:url('../assets/light_dark.png');
+  top: 5%;
+  left: 95%;
+  z-index: 100;
+  content: url('../assets/light_dark.png');
   opacity: 0.75;
 }
 .userPanel {
-  background-color:  rgb(251, 251, 251);
+  background-color: rgb(251, 251, 251);
   border-radius: 5rem;
   /* border: 1px solid rgba(0, 0, 0, 0.8); */
   position: fixed;
   left: 85%;
-  top:0%;
+  top: 0%;
   height: 100%;
-  width:20%;
+  width: 20%;
   z-index: 99;
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: left;
-  box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
-  0 0  0 2px rgba(156, 156, 156,0.5),
-  0.3em 0.3em 1em rgba(0,0,0,0.3);
+  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1),
+    0 0 0 2px rgba(156, 156, 156, 0.5), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
 .userPanelLinks {
-  padding:1rem;
+  padding: 1rem;
   max-width: 15rem;
   margin: 4rem;
-  
 }
 
-.userPanelLinks:link, .userPanelLinks:visited, .userPanelLinks:hover, .userPanelLinks:active {
+.userPanelLinks:link,
+.userPanelLinks:visited,
+.userPanelLinks:hover,
+.userPanelLinks:active {
   color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
 }
@@ -313,7 +310,6 @@ body {
   max-width: 15rem;
 } */
 
-
 /* ************************DARK MODE**************** */
 .dark-mode {
   background-image: url('https://res.cloudinary.com/mrtommyliang/image/upload/v1608178522/hex_le2k12.png');
@@ -324,16 +320,14 @@ body {
 body.dark-mode .container {
   background-color: rgba(20, 21, 31, 0.918);
   box-shadow: inset 0 -3em 5em rgba(60, 58, 77, 0.1),
-  0 0  0 2px rgba(112, 112, 112, 0.5),
-  0.3em 0.3em 1em rgba(255, 255, 255, 0.3);
+    0 0 0 2px rgba(112, 112, 112, 0.5), 0.3em 0.3em 1em rgba(255, 255, 255, 0.3);
   transition: 0.3s ease;
 }
 
 body.dark-mode > #root > div > div:nth-child(2) > div.container > main > div {
   background-color: rgba(20, 21, 31, 0.918);
   box-shadow: inset 0 -3em 5em rgba(60, 58, 77, 0.1),
-  0 0  0 2px rgba(112, 112, 112, 0.5),
-  0.3em 0.3em 1em rgba(177, 177, 177, 0.3);
+    0 0 0 2px rgba(112, 112, 112, 0.5), 0.3em 0.3em 1em rgba(177, 177, 177, 0.3);
   transition: 0.3s ease;
 }
 
@@ -343,13 +337,13 @@ body.dark-mode #DarkLightIcon {
 }
 
 body.dark-mode #theUserIcon {
-  content: url("../assets/darkuser.png");
+  content: url('../assets/darkuser.png');
   transition: 0.3s ease;
 }
 
 body.dark-mode .userPanelLinks {
-  color:rgba(255, 255, 255, 0.95);
-  background-color:  rgba(20, 21, 31, 0.918);
+  color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(20, 21, 31, 0.918);
   padding: 1rem;
   margin: 4rem;
   margin-right: 4rem;
@@ -363,26 +357,23 @@ body.dark-mode .cards {
   margin: 1rem;
   padding: 4%;
   box-shadow: inset 0 -3em 5em rgba(60, 58, 77, 0.1),
-  0 0  0 2px rgba(112, 112, 112, 0.5),
-  0.3em 0.3em 1em rgba(255, 255, 255, 0.3);
+    0 0 0 2px rgba(112, 112, 112, 0.5), 0.3em 0.3em 1em rgba(255, 255, 255, 0.3);
   width: 30rem;
   height: 20rem;
   transition: 0.3s ease;
 }
 
-body.dark-mode  button {
+body.dark-mode button {
   color: rgb(224, 224, 224);
   background-color: rgba(20, 21, 31, 0.918);
   border: 2px solid hsla(0, 0%, 66.3%, 0.3);
   transition: 0.3s ease;
 }
 
-
 body.dark-mode .loginContainer {
   background-color: rgba(20, 21, 31, 0.918);
   box-shadow: inset 0 -3em 5em rgba(60, 58, 77, 0.1),
-  0 0  0 2px rgba(112, 112, 112, 0.5),
-  0.3em 0.3em 1em rgba(255, 255, 255, 0.3);
+    0 0 0 2px rgba(112, 112, 112, 0.5), 0.3em 0.3em 1em rgba(255, 255, 255, 0.3);
 }
 
 body.dark-mode .loginContainer input {
