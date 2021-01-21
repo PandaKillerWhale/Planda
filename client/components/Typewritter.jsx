@@ -4,11 +4,12 @@ import '../styles/index.css';
 const Typewriter = () => {
   document.addEventListener('DOMContentLoaded', function (event) {
     const dataText = [
-      "The Engineer's Notebook",
-      "The Engineer's Notebook",
-      "The Engineer's Notebook",
+      "Panda Killer Whale",
+      "Panda Killer Whale",
+      "Panda Killer Whale",
     ];
-
+    
+    //typeWriter animation function 
     const typeWriter = (text, i, fnCallback) => {
       if (i < text.length) {
         document.querySelector('#divTitle').innerHTML =
