@@ -16,10 +16,12 @@ FROM user_groups ug
 WHERE ug.user_id = $1 AND ug.group_id = $2;`;
   const queryParams = [req.user.id, req.params.groupId];
 
-  db.query(query, queryParams).then(({ rows }) => {
-    res.locals.cards = rows;
-    return next();
-  }).catch(err => next(err));
+  db.query(query, queryParams)
+    .then(({ rows }) => {
+      res.locals.cards = rows;
+      return next();
+    })
+    .catch((err) => next(err));
 };
 
 groupController.getNotebooks = (req, res, next) => {
@@ -68,22 +70,41 @@ RETURNING group_id,(select name from g);`;
     .catch((err) => next(err));
 };
 
+groupController.removeGroup = (req, res, next) => {
+  if (!req.params.groupId) return next({ log: 'groupController.removeGroup: no groupId in url' });
+  if (!req.user.id) {
+    return next({ log: 'groupController.removeGroup: user is not logged in' });
+  }
+  
+  const query = `DELETE FROM groups WHERE group_id = $1 RETURNING *`;
+  const queryParams = [req.params.groupId];
+  db.query(query, queryParams)
+    .then(({ rows }) => {
+      if (!rows.length) return next({ log: 'groupController.removeGroup: no matching groups'})
+      res.locals.removed = rows[0];
+      next();
+    })
+    .catch((err) => next(err));
+};
+
 groupController.addNotebook = (req, res, next) => {
   if (!req.user.id) {
     return next({ log: 'groupController.addNotebook: user is not logged in' });
   }
   if (!req.params.groupId) return next({ log: 'groupController.addNotebook: no groupId in url' });
-  if (!req.body.notebookName) return next({ log: 'groupController.addNotebook: no notebookName in request body' });
+  if (!req.body.notebookName)
+    return next({ log: 'groupController.addNotebook: no notebookName in request body' });
 
   const query = `INSERT INTO notebooks (name, group_id)
-VALUES ( $1 , $2) RETURNING *;`
-  const queryParams = [req.body.notebookName, req.params.groupId]
+VALUES ( $1 , $2) RETURNING *;`;
+  const queryParams = [req.body.notebookName, req.params.groupId];
 
-  db.query(query, queryParams).then(({rows}) => {
-    res.locals.newNotebook = rows[0]
-    next()
-  }).catch(err => next(err))
-
+  db.query(query, queryParams)
+    .then(({ rows }) => {
+      res.locals.newNotebook = rows[0];
+      next();
+    })
+    .catch((err) => next(err));
 };
 
 module.exports = groupController;
