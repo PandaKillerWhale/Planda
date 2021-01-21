@@ -111,7 +111,10 @@ const Navbar = () => {
 
   return (
     <div>
-     <div id='Icons'><img  id='theUserIcon' onClick={switchUserPanel} /><img id='DarkLightIcon'  onClick={darkLightMode} /></div>
+     <div id='Icons'>
+       <img  id='theUserIcon' onClick={switchUserPanel} />
+        <img id='DarkLightIcon'  onClick={darkLightMode} />
+     </div>
       <CurrentGroupDisplay
         name={currentDisplay}
         id={getGroupIdFromName(currentDisplay)}
