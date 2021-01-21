@@ -74,6 +74,8 @@ module.exports = (app) => {
     const findUserParams = [id];
 
     db.query(findUserQuery, findUserParams).then(({ rows }) => {
+      // if user can't be found
+      // if (!row[0]) {}
       const {user_id: id, username} = rows[0]
       done(null, {id,username});
     });

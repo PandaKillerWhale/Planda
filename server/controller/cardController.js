@@ -15,7 +15,6 @@ cardController.updateCard = (req, res, next) => {
   const { notebook_id, title, description, resources, status, card_id } = req.body;
   const query = `UPDATE cards c SET notebook_id = $1, title = $2, description = $3, resources = $4, status = $5 WHERE c.card_id = $6 RETURNING *`;
   const vals = [notebook_id, title, description, resources, status, card_id];
-  console.log('It passed here');
   db.query(query, vals).then((data) => {
     res.locals.updateCard = data.rows[0];
     next();
