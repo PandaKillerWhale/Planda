@@ -34,6 +34,8 @@ CREATE TABLE notebooks
   "group_id" INTEGER NOT NULL,
   FOREIGN KEY (group_id) 
     REFERENCES groups (group_id)
+    -- delete notebook when parent group is deleted
+    ON DELETE CASCADE
 );
 
 CREATE TABLE cards
@@ -48,6 +50,8 @@ CREATE TABLE cards
   "notebook_id" INTEGER NOT NULL,
   FOREIGN KEY (notebook_id)
     REFERENCES notebooks (notebook_id)
+    -- delete card when parent notebook is deleted
+    ON DELETE CASCADE
 );
 
 CREATE TABLE user_cards
