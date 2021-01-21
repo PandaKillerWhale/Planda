@@ -25,7 +25,7 @@ WHERE ug.user_id = $1 AND ug.group_id = $2;`;
 groupController.getNotebooks = (req, res, next) => {
   if (!req.params.groupId) return next({ log: 'groupController.getCards: no groupId in url' });
   if (!req.user.id) {
-    return next({ log: 'groupController.getCards: user is not logged in' });
+    return next({ log: 'groupController.getNotebooks: user is not logged in' });
   }
 
   // TODO: security flaw: a user could query random group ids and see their notebooks
@@ -35,6 +35,35 @@ groupController.getNotebooks = (req, res, next) => {
     res.locals.notebooks = data.rows;
     next();
   });
+};
+
+groupController.addGroup = (req, res, next) => {
+  if (!req.user.id) {
+    return next({ log: 'groupController.addGroup: user is not logged in' });
+  }
+
+  // add group
+  const query = `WITH g AS (
+  INSERT INTO groups (name)
+  VALUES ('Team Rocket')
+  RETURNING *
+)
+INSERT INTO user_groups (group_id, user_id)
+VALUES (
+    (
+      select group_id
+      from g
+    ),
+    123
+  )
+RETURNING group_id,(select name from g);`;
+  const queryParams = [req.body.groupName, req.user.id];
+  db.query(query, queryParams)
+    .then(({ rows }) => {
+      res.locals.newGroup = rows[0];
+      next();
+    })
+    .catch((err) => next(err));
 };
 
 module.exports = groupController;
