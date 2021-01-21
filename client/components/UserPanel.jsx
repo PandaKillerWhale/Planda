@@ -5,7 +5,6 @@ const UserPanel = (props) => {
   const changeDisplay = (e) => props.setCurrentDisplay(e.target.id.replace('userPanelBtn', ''));
 
   const appendGroupToState = (group) => {
-    console.log(props.setUserState);
     props.setUserState({
       ...props.userState,
       groups: props.userState.groups.concat(group.name),
