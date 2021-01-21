@@ -34,13 +34,13 @@ const Navbar = () => {
 
   useEffect(() => {
     if (userState.groups.indexOf(currentDisplay) >= 0) {
-    fetch('/api/cards/group/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  // "/api/group/cards/""
+    fetch('/api/group/cards/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  // "/api/group/cards/""
       .then(res => res.json())
       .then(data => {
         setCards(data);
       });
     } else if (currentDisplay === userState.name) {
-      fetch('/api/user/cards/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  // "/api/group/cards/""
+      fetch('/api/user/cards/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  
       .then(res => res.json())
       .then(data => {
         setCards(data);
@@ -80,7 +80,7 @@ const Navbar = () => {
 
     // USER PANEL ENABLER 
     const userPanel = [];
-    if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} setCurrentDisplay={setCurrentDisplay}/>)
+    if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} setCurrentDisplay={setCurrentDisplay} setUserState={setUserState}/>)
     // LOGIN ENABLER
     const login = [];
     if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState}/>)
