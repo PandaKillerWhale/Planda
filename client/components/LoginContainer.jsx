@@ -4,7 +4,7 @@ import LoginPage from './LoginPage.jsx';
 const LoginContainer = (props) => {
   return (
     <div>
-      <LoginPage  setUser={props.setUser}/>
+      <LoginPage key='LoginPage1' setUser={props.setUser}/>
     </div>
   );
 };

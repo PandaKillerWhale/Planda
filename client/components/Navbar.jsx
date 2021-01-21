@@ -10,15 +10,35 @@ const Navbar = () => {
   const [taskCategories, setTaskCategories] = useState(['AppConfig', 'Webpack', 'Backend', 'Frontend']);
   const [currentTaskCat, toggleCurrentTask] = useState('');
   const [cards, setCards] = useState([]);
-  const [userState, setUserState] = useState({name:'', groups:['Codesmith', 'PandaKillerWhale'], enabled:false});
+  const [userState, setUserState] = useState({name:'', id:'', groups:[], group_id:[], enabled:false});
   const [currentDisplay, setCurrentDisplay] = useState(userState.name);
 
   /* on page load, we pull the data for the current Task Cat,  */
   useEffect(() => {
-    fetch(`/api/getCards/${currentTaskCat}`)
+    fetch('/api/user/groups')  
       .then(res => res.json())
-      .then(data => setCards(data));
-  }, [currentTaskCat]);
+      .then(data => {
+        const newUser = {name:data.username,id:data.id, groups:[], group_id:[]};
+        data.userGroups.forEach( element => (newUser.groups.push(element.name), newUser.group_id.push(element.group_id)));
+        setUserState(newUser);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (userState.groups.indexOf(currentDisplay) >= 0) {
+    fetch('/api/cards/group/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  // "/api/group/cards/""
+      .then(res => res.json())
+      .then(data => {
+        setCards(data);
+      });
+    } else if (currentDisplay === userState.name) {
+      fetch('/api/user/cards/'+userState.group_id[userState.groups.indexOf(currentDisplay)])  // "/api/group/cards/""
+      .then(res => res.json())
+      .then(data => {
+        setCards(data);
+      });
+    }
+  }, [currentDisplay])
 
   const taskChecker = (e) => {
     return toggleCurrentTask(e.target.id);
@@ -37,7 +57,7 @@ const Navbar = () => {
   taskCategories.forEach((category, index) => {
     catButtons.push(<div>
       <h1 id={category} onClick={taskChecker}>
-        <TaskCategory key={`button${category}${index}`} type={category} setCardData={setCards}/>
+        <TaskCategory key={`button${category}${index}`} type={category}/>
       </h1>
     </div>)
   });
@@ -46,16 +66,16 @@ const Navbar = () => {
   const currentTaskShow = [];
     if (currentTaskCat.length > 1) {
       currentTaskShow.push(<div className="grid-container">
-        <TaskCategorySteps key={`Steps${currentTaskCat}`} currentDisplay={currentDisplay} type={currentTaskCat} cardData={cards}/>
+        <TaskCategorySteps key={`Steps${currentTaskCat}`}  type={currentTaskCat} cardData={cards} userData={userState} />
       </div>)
     }
 
     // USER PANEL ENABLER 
     const userPanel = [];
-    if (userState.enabled) userPanel.push(<UserPanel userState={userState} setCurrentDisplay={setCurrentDisplay}/>)
+    if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} setCurrentDisplay={setCurrentDisplay}/>)
     // LOGIN ENABLER
     const login = [];
-    if (!userState.name) login.push(<LoginContainer setUser={setUserState}/>)
+    if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState}/>)
 
   return (
     <div>
