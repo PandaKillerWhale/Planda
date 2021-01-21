@@ -13,7 +13,6 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const db = require('./models/taskModel');
 
 module.exports = (app) => {
-
   // http://www.passportjs.org/docs/google/
   // https://dev.to/phyllis_yym/beginner-s-guide-to-google-oauth-with-passport-js-2gh4
   passport.use(
@@ -75,16 +74,22 @@ module.exports = (app) => {
 
     db.query(findUserQuery, findUserParams).then(({ rows }) => {
       // if user can't be found
-      // if (!row[0]) {}
-      const {user_id: id, username} = rows[0]
-      done(null, {id,username});
+      if (!rows || !rows.length) {
+        return done(null, false)
+      }
+
+      const { user_id: id, username } = rows[0];
+      done(null, { id, username });
     });
   });
 
   // route to listen to google's oauth callback
   app.get(
     '/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/dashboard', successRedirect: '/dashboard' })
+    passport.authenticate('google', {
+      failureRedirect: '/dashboard',
+      successRedirect: '/dashboard',
+    })
   );
 
   // route to iniate oauth flow.
@@ -95,6 +100,4 @@ module.exports = (app) => {
     req.logout();
     res.redirect('/');
   });
-
-
 };
