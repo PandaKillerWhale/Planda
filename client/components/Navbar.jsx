@@ -83,8 +83,8 @@ const Navbar = () => {
     if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} setCurrentDisplay={setCurrentDisplay} setUserState={setUserState}/>)
     // LOGIN ENABLER
     const login = [];
-    if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState}/>)
-
+  if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState}/>)
+  
   const getGroupIdFromName = (name) => {
     // if name is not set
     if (!name) return;
