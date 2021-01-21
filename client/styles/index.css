@@ -201,6 +201,13 @@ body {
   box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.2);
 }
 
+.logout-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 50px;
+  color: grey;
+}
+
 .loginContainer input {
   display: flex;
   text-align: center;
