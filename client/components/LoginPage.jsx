@@ -58,11 +58,11 @@ const LoginPage = () => {
   return (
     <div id='loginContainer' className="outerContainer">
       <div className="loginContainer">
-        <input  id="name" placeholder="username"></input>
+        {/* <input  id="name" placeholder="username"></input>
         <input type='password' id="password" placeholder="password"></input>
-        <button onClick={handleSignup}>Sign up</button>
-        <button onClick={oAuthHandler}>Log in</button>
-        <button onClick={logoutHandler}>Log out</button>
+        <button onClick={handleSignup}>Sign up</button> */}
+        <button onClick={oAuthHandler} id='google' >Sign In with GOOGLE</button>
+        {/* <button onClick={logoutHandler}>Log out</button> */}
       </div>
     </div>
   );
