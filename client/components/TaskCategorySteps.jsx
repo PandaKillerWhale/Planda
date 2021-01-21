@@ -26,6 +26,24 @@ const TaskCategorySteps = (props) => {
     .then( parsed =>  setData(Data.filter(element => element.card_id!== parsed.card_id)))
   }
 
+  const changeStatus = (card, dataI) => (e) => {
+    fetch('/api/card', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({...card, status: card.status === 1 ? 0 : 1})
+    }).then(res => {
+      if (!res.ok) throw new Error('failed to update card')
+      return res.json()
+    }).then(data => {
+      const updatedData = [...Data]
+      updatedData[dataI] = data
+      setData(updatedData)
+    })
+  }
+
   /* iterating through the prop.type Data to create the divs */
   for (let i = 0; i < Data.length; i += 1) {
     const resDivs = [];
@@ -37,8 +55,10 @@ const TaskCategorySteps = (props) => {
           <div className="completedCheckboxParent">
             <label>Complete</label>
             <input
+              onClick={changeStatus(Data[i],i)}
               type="checkbox"
-              name={Data[i].status === 2 ? 'true' : 'false'}
+              checked={Data[i].status === 1}
+              // name={Data[i].status === 2 ? 'true' : 'false'}
             ></input>
           </div>
 
@@ -100,8 +120,6 @@ const TaskCategorySteps = (props) => {
     </div>
   </div>)
   }
-
-
 
   return (
   <Fragment>
