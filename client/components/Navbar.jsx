@@ -92,12 +92,6 @@ const Navbar = () => {
     </div>)
   }
 
-  // USER PANEL ENABLER 
-  const userPanel = [];
-  if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} currentDisplay={currentDisplay} setCurrentDisplay={setCurrentDisplay} taskCategories={taskCategories} setTaskCategories={setTaskCategories} setUserState={setUserState} />)
-  // LOGIN ENABLER
-  const login = [];
-  if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState} />)
 
   // USER PANEL ENABLER 
   const userPanel = [];
