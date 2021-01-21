@@ -25,6 +25,7 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 app.use('/api/group', groupRouter)
 app.use('/api/card', cardRouter)
 app.use('/api/user', userRouter)
+app.use('/api/notebook', notebookRouter)
 
 
 // error handling

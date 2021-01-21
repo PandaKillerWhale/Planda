@@ -7,7 +7,15 @@ router.post('/', cardController.postCard, (req, res) => {
   res.json(res.locals.newCard);
 });
 
-// router.delete('/card');
-// router.put('/card');
+router.patch('/', cardController.updateCard, (req, res) => {
+  res.json(res.locals.updateCard);
+});
+
+
+router.delete('/', cardController.deleteCard, (req, res) => {
+  res.json(res.locals.deletedCard);
+})
+
+
 
 module.exports = router;

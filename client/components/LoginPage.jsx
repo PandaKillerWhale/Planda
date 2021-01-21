@@ -38,7 +38,7 @@ const LoginPage = () => {
       .then(
         (result) => {
           if (result !== undefined) {
-            window.location.replace('http://localhost:8080/dashboard');
+           //UTILIZE setUser() to define user object;
           }
         },
         (error) => {
@@ -56,7 +56,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="outerContainer">
+    <div id='loginContainer' className="outerContainer">
       <div className="loginContainer">
         <input  id="name" placeholder="username"></input>
         <input type='password' id="password" placeholder="password"></input>
