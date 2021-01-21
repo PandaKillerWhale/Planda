@@ -24,13 +24,16 @@ router.post('/notebook/:groupId', groupController.addNotebook, (_, res) => {
   res.json(res.locals.newNotebook)
 })
 
+router.delete('/:groupId', groupController.removeGroup, (req, res) => {
+  res.json(res.locals.removed)
+})
+
 /**
  * Create new Group
  */
 router.post('/', groupController.addGroup, (_, res) => {
   res.json(res.locals.newGroup)
 });
-
 
 // router.delete('/group/:groupId');
 

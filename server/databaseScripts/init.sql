@@ -22,9 +22,11 @@ CREATE TABLE user_groups
   "user_id" VARCHAR NOT NULL,
   "group_id" INTEGER NOT NULL,
   FOREIGN KEY (user_id)
-    REFERENCES users (user_id),
+    REFERENCES users (user_id)
+    ON DELETE CASCADE,
   FOREIGN KEY (group_id)
     REFERENCES groups (group_id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE notebooks
@@ -60,7 +62,9 @@ CREATE TABLE user_cards
   "card_id" INTEGER NOT NULL,
   PRIMARY KEY (user_id, card_id),
   FOREIGN KEY (user_id)
-    REFERENCES users (user_id),
+    REFERENCES users (user_id)
+    ON DELETE CASCADE,
   FOREIGN KEY (card_id)
     REFERENCES cards (card_id)
+    ON DELETE CASCADE
 );
