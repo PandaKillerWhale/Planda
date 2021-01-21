@@ -5,13 +5,11 @@ const notebookController = {};
 notebookController.getNotebooks = (req, res, next) => {
   const query = `SELECT n.name, n.notebook_id from notebooks n LEFT JOIN groups g ON n.group_id = g.group_id WHERE g.group_id = $1`;
   const queryParams = [1];
-  db.query(query, queryParams).then((data) => {
+  db.query(query, queryParams).then(data => {
     res.locals.notebooks = data.rows;
     next();
   });
 };
-
-
 
 // notebookController.postNotebook = (req, res, next) => {
 //   const { notebook_id, group_id, name } = req.body;
@@ -22,7 +20,5 @@ notebookController.getNotebooks = (req, res, next) => {
 //     next();
 //   })
 // }
-
-
 
 module.exports = notebookController;
