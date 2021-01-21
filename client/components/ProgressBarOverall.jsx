@@ -8,6 +8,7 @@ const ProgressBarOverall = (props) => {
     height: '100%',
     width: `${allPercentage}%`,
     backgroundColor: bgcolor,
+    transition: width 1s ease-in-out;
     opacity: 1,
     borderRadius: 'inherit',
     textAlign: 'right'
