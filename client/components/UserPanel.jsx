@@ -95,6 +95,7 @@ const UserPanel = (props) => {
         </button>
         {groupLinks}
         <button className='userPanelLinks' display={props.userState.groups.includes(props.currentDisplay) ? "none" : "inline"} id='userpanelBtnAddNB' onClick={() => {createModal('notebook', addNotebook)}}>Add New NoteBook to Active Group</button>
+        <button className='userPanelLinks logout-btn' onClick={() => window.location.href = '/auth/logout'}>Logout</button>
       </div>
     </main>
   );

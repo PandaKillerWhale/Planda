@@ -26,7 +26,8 @@ const Navbar = () => {
         const newUser = { name: data.username, id: data.id, groups: [], group_id: [] };
         data.userGroups.forEach(element => (newUser.groups.push(element.name), newUser.group_id.push(element.group_id)));
         setUserState(newUser);
-      });
+      })
+      .catch(err => console.error(err))
   }, []);
 
   //Pulling Card data based on current displays
@@ -90,6 +91,13 @@ const Navbar = () => {
       <TaskCategorySteps key={`Steps${currentTaskCat}`} type={currentTaskCat} cardData={cards} userData={userState} />
     </div>)
   }
+
+  // USER PANEL ENABLER 
+  const userPanel = [];
+  if (userState.enabled) userPanel.push(<UserPanel key='UserPanel1' userState={userState} currentDisplay={currentDisplay} setCurrentDisplay={setCurrentDisplay} taskCategories={taskCategories} setTaskCategories={setTaskCategories} setUserState={setUserState} />)
+  // LOGIN ENABLER
+  const login = [];
+  if (!userState.name) login.push(<LoginContainer key='LoginContainer1' setUser={setUserState} />)
 
   // USER PANEL ENABLER 
   const userPanel = [];

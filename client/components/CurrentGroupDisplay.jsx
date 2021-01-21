@@ -28,7 +28,7 @@ const CurrentGroupDisplay = ({ name, id, setUserState, userState, setCurrentDisp
   return (
     <div className="welcome">
       {name}
-      {id ? <button onClick={deleteGroup}>X</button> : null}
+      {id ? <button className="deleteGroup" onClick={deleteGroup}>X</button> : null}
     </div>
   );
 };
